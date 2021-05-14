@@ -88,13 +88,12 @@
                 {
                     <td>@noValue</td>
                 }
-                @*<td>@(item.Record.Description != null ? item.Record.Description : noValue)</td>*@
 
                 <td>@(item.Record.Temperature != null ? Math.Round((double)item.Record.Temperature) : noValue)</td>
                 <td>@(item.Record.WindSpeed != null ? Math.Round((double)item.Record.WindSpeed, 1) : noValue)</td>
                 <td>@(item.Record.WindDirection != null ? item.Record.WindDirection : noValue)</td>
                 <td>@(item.Record.Clouds != null ? item.Record.Clouds : noValue)</td>
-                <td>@(item.Record.RelativeHumidity != null ? item.Record.RelativeHumidity : noValue)</td>
+                <td>@(item.Record.RelativeHumidity != null ? Math.Round((double)item.Record.RelativeHumidity) : noValue)</td>
                 <td>@(item.Record.UvIndex != null ? Math.Round((double)item.Record.UvIndex, 1) : noValue)</td>
             </tr>
         }

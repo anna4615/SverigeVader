@@ -48,12 +48,12 @@
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-        .Average(m => m.Record.Clouds))
+        .Average(m => m.Record.RelativeHumidity))
         </td>
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.UvIndex != null)
-        .Average(m => m.Record.Clouds), 1)
+        .Average(m => m.Record.UvIndex), 1)
         </td>
     </tr>
 
@@ -81,12 +81,12 @@
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-        .Max(m => m.Record.Clouds))
+        .Max(m => m.Record.RelativeHumidity))
         </td>
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.UvIndex != null)
-        .Max(m => m.Record.Clouds), 1)
+        .Max(m => m.Record.UvIndex), 1)
         </td>
     </tr>
 
@@ -114,12 +114,12 @@
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-        .Min(m => m.Record.Clouds))
+        .Min(m => m.Record.RelativeHumidity))
         </td>
         <td>
             @Math.Round((double)Measurements
         .Where(m => m.City == city && m.Record.UvIndex != null)
-        .Min(m => m.Record.Clouds), 1)
+        .Min(m => m.Record.UvIndex), 1)
         </td>
     </tr>
     }
