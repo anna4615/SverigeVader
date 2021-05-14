@@ -6,6 +6,7 @@
 @{
     ViewData["Title"] = "Väder";
     string noValue = "-";
+    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 
@@ -38,8 +39,7 @@
                 <tr>
                     <th scope="row">@measurement.City</th>
                     <td>
-                        @measurement.Date.ToLocalTime().ToShortDateString()
-                        @measurement.Date.ToLocalTime().ToShortTimeString()
+                        @TimeZoneInfo.ConvertTimeFromUtc(measurement.Date, ectZone).ToString("yyyy-MM-dd HH:mm")
                     </td>
 
                     @if (measurement.Record.Description != null && measurement.Record.Icon != null)

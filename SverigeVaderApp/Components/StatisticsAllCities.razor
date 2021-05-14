@@ -8,6 +8,8 @@
 
     [Parameter]
     public IEnumerable<Models.Measurement> Measurements { get; set; }
+
+    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 
@@ -24,8 +26,10 @@
             
         </th>
         <td style="font-size: small">
-            @(Measurements.Where(m => m.City == city).Min(m => m.Date.ToShortDateString())) -
-            @(Measurements.Where(m => m.City == city).Max(m => m.Date.ToShortDateString()))
+            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Min(m => m.Date), ectZone).ToString("yyyy-MM-dd") -
+            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Max(m => m.Date), ectZone).ToString("yyyy-MM-dd")
+            @*@(Measurements.Where(m => m.City == city).Min(m => m.Date.ToString("yyyy-MM-dd"))) -
+            @(Measurements.Where(m => m.City == city).Max(m => m.Date.ToString("yyyy-MM-dd")))*@
         </td>
         <td>
             Medel
