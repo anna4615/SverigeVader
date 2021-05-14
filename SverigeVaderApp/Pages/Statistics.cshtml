@@ -1,0 +1,53 @@
+﻿@page
+@model SverigeVaderApp.Pages.StatisticsModel
+@{
+}
+
+<div class="text-center pb-4" style="color:#415A6D">
+    <h3>Statistik</h3>
+</div>
+
+<div class="font-weight-bold" style="color: #415A6D">
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <label asp-for="SelectedCity">Plats</label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <select class="form-control" id="SelectedCity" asp-for="SelectedCity" asp-items="Model.CitiesSelectList">
+                <option value="">Alla platser</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn mb-2 font-weight-bold" style="background-color: #95B5C9; color: #415A6D">Visa</button>
+        </div>
+    </form>
+</div>
+
+<table class="table table-sm">
+    <thead style="background-color: #95B5C9; color: #415A6D">
+
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].City)</th>
+            <th scope="col"></th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Temperature)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.WindSpeed)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Clouds)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.RelativeHumidity)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.UvIndex)</th>
+        </tr>
+
+    </thead>
+
+    @if (string.IsNullOrWhiteSpace(Model.SelectedCity))
+    {
+        <component type="typeof(Components.StatisticsAllCities)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities' param-measurements='Model.Measurements' />
+    }
+
+    else
+    {
+        <component type="typeof(Components.AverageForCity)" render-mode="ServerPrerendered"
+                   param-selectedcity='Model.SelectedCity' param-measurements='Model.Measurements' />
+    }
+
+</table>

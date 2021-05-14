@@ -1,0 +1,117 @@
+﻿@page
+@model SverigeVaderApp.Pages.HistoricalWeatherModel
+@inject Models.Measurement measurement
+@{
+    ViewData["Title"] = "Statistik";
+    measurement = Model.Measurements[0];
+}
+
+<div class="text-center pb-4" style="color: #415A6D">
+    <h3>Historiskt väder</h3>
+</div>
+
+<div class="font-weight-bold" style="color: #415A6D">
+    <form class="form-inline">
+        <div class="form-group mb-2">
+            <label asp-for="SelectedCity">Plats</label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <select class="form-control" id="SelectedCity" asp-for="SelectedCity" asp-items="Model.CitiesSelectList">
+                <option value="">Alla platser</option>
+            </select>
+        </div>
+        <div class="form-group mb-2">
+            <label asp-for="SortOn">Sortering</label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <select class="form-control" id="SortOn" asp-for="SortOn" asp-items="Model.ValueNames">
+                <option value="">Välj sortering</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn mb-2 font-weight-bold" style="background-color: #95B5C9; color: #415A6D">Visa</button>
+        </div>
+    </form>
+</div>
+
+
+
+<table class="table table-sm">
+    <thead style="background-color: #95B5C9; color: #415A6D">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].City)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Date)</th>
+            <th scope="col">Tid</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Description)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Temperature)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.WindSpeed)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.WindDirection)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Clouds)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.RelativeHumidity)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.UvIndex)</th>
+        </tr>
+    </thead>
+
+    @*@<component type="typeof(Components.CityWeather)" render-mode="ServerPrerendered" param-selectedcity='@Model.SelectedCity' />*@
+
+    <tbody style="color: #415A6D">
+        @foreach (var item in Model.Measurements)
+        {
+            string noValue = "-";
+            <tr>
+                <th scope="row">@item.City</th>
+                <td>
+                    @item.Date.ToLocalTime().ToShortDateString()
+                </td>
+                <td>
+                    @item.Date.ToLocalTime().ToShortTimeString()
+                </td>
+
+                @if (item.Record.Description != null)
+                {
+                    @if (item.Record.Icon != null)
+                    {
+                        <td>
+                            <img style="height:30px" src="https://www.weatherbit.io/static/img/icons/@item.Record.Icon"
+                                 title="Symbol för @item.Record.Description" alt="Symbol för @item.Record.Description" />
+                            @item.Record.Description
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            &nbsp&nbsp&nbsp-&nbsp&nbsp @item.Record.Description
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>@noValue</td>
+                }
+                @*<td>@(item.Record.Description != null ? item.Record.Description : noValue)</td>*@
+
+                <td>@(item.Record.Temperature != null ? Math.Round((double)item.Record.Temperature) : noValue)</td>
+                <td>@(item.Record.WindSpeed != null ? Math.Round((double)item.Record.WindSpeed, 1) : noValue)</td>
+                <td>@(item.Record.WindDirection != null ? item.Record.WindDirection : noValue)</td>
+                <td>@(item.Record.Clouds != null ? item.Record.Clouds : noValue)</td>
+                <td>@(item.Record.RelativeHumidity != null ? item.Record.RelativeHumidity : noValue)</td>
+                <td>@(item.Record.UvIndex != null ? Math.Round((double)item.Record.UvIndex, 1) : noValue)</td>
+            </tr>
+        }
+
+        <tr>
+            <th></th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </tbody>
+</table>
+

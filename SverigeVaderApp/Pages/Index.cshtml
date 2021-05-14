@@ -1,0 +1,104 @@
+﻿@page
+@model IndexModel
+
+@inject Models.Measurement measurement
+
+@{
+    ViewData["Title"] = "Väder";
+    string noValue = "-";
+}
+
+
+<div class="text-center pb-4" style="color:#415A6D">
+    <h3>Aktuellt väder</h3>
+</div>
+
+<table class="table table-sm">
+    <thead style="background-color: #95B5C9; color: #415A6D">
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].City)</th>
+            <th scope="col">Tid</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.Description)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.Temperature)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.WindSpeed)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.WindDirection)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.RelativeHumidity)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentWeather[0].Record.UvIndex)</th>
+        </tr>
+    </thead>
+
+
+
+    <tbody style="color: #415A6D">
+        @foreach (var city in Model.Cities)
+        {
+            measurement = Model.CurrentWeather.FirstOrDefault(m => m.City == city);
+            @if (measurement != null)
+            {
+                <tr>
+                    <th scope="row">@measurement.City</th>
+                    <td>
+                        @measurement.Date.ToLocalTime().ToShortDateString()
+                        @measurement.Date.ToLocalTime().ToShortTimeString()
+                    </td>
+
+                    @if (measurement.Record.Description != null && measurement.Record.Icon != null)
+                    {
+                        <td>
+                            <img style="height:30px" src="https://www.weatherbit.io/static/img/icons/@measurement.Record.Icon"
+                                 title="Symbol för @measurement.Record.Description" alt="Symbol för @measurement.Record.Description" />
+                            @measurement.Record.Description
+                        </td>
+                    }
+                    else
+                    {
+                        <td>@noValue</td>
+                    }
+
+                    @if (measurement.Record.Temperature != null)
+                    {
+                        <td>
+                            @Math.Round((double)measurement.Record.Temperature)&#176&nbsp&nbspkänns som
+                            @Math.Round((double)measurement.Record.ApparentTemp)&#176
+                        </td>
+                    }
+                    else
+                    {
+                        <td>@noValue</td>
+                    }
+
+                    <td>@(measurement.Record.WindSpeed != null ? Math.Round((double)measurement.Record.WindSpeed, 1) : noValue)</td>
+                    <td>@(measurement.Record.WindDirection != null ? measurement.Record.WindDirection : noValue)</td>
+                    <td>@(measurement.Record.RelativeHumidity != null ? Math.Round((double)measurement.Record.RelativeHumidity) : noValue)</td>
+                    <td>@(measurement.Record.UvIndex != null ? Math.Round((double)measurement.Record.UvIndex, 1) : noValue)</td>
+                </tr>
+            }
+
+            else
+            {
+                <tr>
+                    <th scope="row">@city</th>
+                    <td>Kunde inte hämta data</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+
+        }
+
+        <tr>
+            <th></th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
