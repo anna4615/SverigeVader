@@ -11,5 +11,7 @@ namespace SverigeVaderApp.DAL
     {
         IEnumerable<Measurement> GetWeatherDataList();
         IMongoCollection<Measurement> GetWeatherDataCollection();
+
+        public DateTime StartOfSeason(string city, string season);
     }
 }

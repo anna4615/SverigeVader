@@ -1,0 +1,39 @@
+﻿@inject DAL.IDataAccess DataAccess;
+@using System.Collections.Generic;
+
+@code {
+
+    [Parameter]
+    public List<string> Cities { get; set; }
+
+    [Parameter]
+    public string Season { get; set; }
+
+    public DateTime StartOfSeason { get; set; }
+}
+
+
+@foreach (var city in Cities)
+{
+    <div hidden>@(StartOfSeason = DataAccess.StartOfSeason(city, Season))</div>
+
+    if (StartOfSeason != default)
+    {
+        <tr>
+            <th scope="row">@city</th>
+            <td>
+                Det blev @Season @StartOfSeason.ToShortDateString()
+            </td>
+        </tr>
+    }
+
+    else
+    {
+        <tr>
+            <th scope="row">@city</th>
+            <td>
+                Det har inte blivit @Season än
+            </td>
+        </tr>
+    }
+}

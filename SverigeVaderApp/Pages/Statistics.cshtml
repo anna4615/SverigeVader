@@ -28,6 +28,7 @@
 
         <tr>
             <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].City)</th>
+            <th scope="col">Period</th>
             <th scope="col"></th>
             <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.Temperature)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Record.WindSpeed)</th>
@@ -46,8 +47,33 @@
 
     else
     {
-        <component type="typeof(Components.AverageForCity)" render-mode="ServerPrerendered"
-                   param-selectedcity='Model.SelectedCity' param-measurements='Model.Measurements' />
+        <component type="typeof(Components.StatisticsAllCities)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities.Where(m => m == Model.SelectedCity).ToList()' param-measurements='Model.Measurements' />
+
+
     }
 
 </table>
+
+
+<table class="table table-sm">
+    @if (string.IsNullOrWhiteSpace(Model.SelectedCity))
+    {
+
+        <component type="typeof(Components.SeasonStart)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities' param-season='"vår"' />
+
+        <component type="typeof(Components.SeasonStart)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities' param-season='"sommar"' />
+    }
+
+    else
+    {
+        <component type="typeof(Components.SeasonStart)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities.Where(m => m == Model.SelectedCity).ToList()' param-season='"vår"' />
+
+        <component type="typeof(Components.SeasonStart)" render-mode="ServerPrerendered"
+                   param-cities='Model.Cities.Where(m => m == Model.SelectedCity).ToList()' param-season='"sommar"' />
+    }
+</table>
+

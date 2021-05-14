@@ -19,7 +19,6 @@ namespace SverigeVaderApp.Pages
 
         public SelectList CitiesSelectList { get; set; }
 
-        //public List<string> CitiesList { get; set; }
         public SelectList ValueNames { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -42,11 +41,8 @@ namespace SverigeVaderApp.Pages
 
             ValueNames = new SelectList(recordValuesNames);
 
-            //DataAccess collection = new DataAccess();
-
             Measurements = _dataAccess.GetWeatherDataList().OrderByDescending(m => m.Date).ToList();
-
-            //CitiesList = new List<string>(Measurements.GroupBy(m => m.City).Select(g => g.Key).ToList());
+            
             CitiesSelectList = new SelectList(Measurements.GroupBy(m => m.City).OrderBy(g => g.Key).Select(g => g.Key));
 
             if (string.IsNullOrWhiteSpace(SelectedCity) == false)

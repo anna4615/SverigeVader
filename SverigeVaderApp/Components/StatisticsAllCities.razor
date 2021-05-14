@@ -12,107 +12,116 @@
 
 
 
-<span hidden>@(Measurements = DataAccess.GetWeatherDataList());</span>
+
 
 <tbody style="color: #415A6D">
 
     @foreach (var city in Cities)
     {
-        <tr>
-            <th scope="row">@city</th>
-            <td>
-                Medel
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Temperature != null)
-            .Average(m => m.Record.Temperature), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.WindSpeed != null)
-            .Average(m => m.Record.WindSpeed), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Clouds != null)
-            .Average(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-            .Average(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.UvIndex != null)
-            .Average(m => m.Record.Clouds), 1)
-            </td>
-        </tr>
+    <tr>
+        <th scope="row">
+            @city
+            
+        </th>
+        <td style="font-size: small">
+            @(Measurements.Where(m => m.City == city).Min(m => m.Date.ToShortDateString())) -
+            @(Measurements.Where(m => m.City == city).Max(m => m.Date.ToShortDateString()))
+        </td>
+        <td>
+            Medel
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Temperature != null)
+        .Average(m => m.Record.Temperature), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.WindSpeed != null)
+        .Average(m => m.Record.WindSpeed), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Clouds != null)
+        .Average(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.RelativeHumidity != null)
+        .Average(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.UvIndex != null)
+        .Average(m => m.Record.Clouds), 1)
+        </td>
+    </tr>
 
-        <tr>
-            <th scope="row"></th>
-            <td>
-                Max
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Temperature != null)
-            .Max(m => m.Record.Temperature), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.WindSpeed != null)
-            .Max(m => m.Record.WindSpeed), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Clouds != null)
-            .Max(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-            .Max(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.UvIndex != null)
-            .Max(m => m.Record.Clouds), 1)
-            </td>
-        </tr>
+    <tr>
+        <th scope="row"></th>
+        <td style="font-size: small"></td>
+        <td>
+            Max
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Temperature != null)
+        .Max(m => m.Record.Temperature), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.WindSpeed != null)
+        .Max(m => m.Record.WindSpeed), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Clouds != null)
+        .Max(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.RelativeHumidity != null)
+        .Max(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.UvIndex != null)
+        .Max(m => m.Record.Clouds), 1)
+        </td>
+    </tr>
 
-        <tr>
-            <th scope="row"></th>
-            <td>
-                Min
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Temperature != null)
-            .Min(m => m.Record.Temperature), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.WindSpeed != null)
-            .Min(m => m.Record.WindSpeed), 1)
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.Clouds != null)
-            .Min(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.RelativeHumidity != null)
-            .Min(m => m.Record.Clouds))
-            </td>
-            <td>
-                @Math.Round((double)Measurements
-            .Where(m => m.City == city && m.Record.UvIndex != null)
-            .Min(m => m.Record.Clouds), 1)
-            </td>
-        </tr>
+    <tr>
+        <th scope="row"></th>
+        <td style="font-size: small"></td>
+        <td>
+            Min
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Temperature != null)
+        .Min(m => m.Record.Temperature), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.WindSpeed != null)
+        .Min(m => m.Record.WindSpeed), 1)
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.Clouds != null)
+        .Min(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.RelativeHumidity != null)
+        .Min(m => m.Record.Clouds))
+        </td>
+        <td>
+            @Math.Round((double)Measurements
+        .Where(m => m.City == city && m.Record.UvIndex != null)
+        .Min(m => m.Record.Clouds), 1)
+        </td>
+    </tr>
     }
 
     <tr>
