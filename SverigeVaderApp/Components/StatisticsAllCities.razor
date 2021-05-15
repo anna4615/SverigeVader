@@ -9,7 +9,7 @@
     [Parameter]
     public IEnumerable<Models.Measurement> Measurements { get; set; }
 
-    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 
@@ -26,8 +26,8 @@
             
         </th>
         <td style="font-size: small">
-            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Min(m => m.Date), ectZone).ToString("yyyy-MM-dd") -
-            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Max(m => m.Date), ectZone).ToString("yyyy-MM-dd")
+            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Min(m => m.Date), timeZone).ToString("yyyy-MM-dd") -
+            @TimeZoneInfo.ConvertTimeFromUtc(Measurements.Where(m => m.City == city).Max(m => m.Date), timeZone).ToString("yyyy-MM-dd")
             @*@(Measurements.Where(m => m.City == city).Min(m => m.Date.ToString("yyyy-MM-dd"))) -
             @(Measurements.Where(m => m.City == city).Max(m => m.Date.ToString("yyyy-MM-dd")))*@
         </td>
@@ -128,14 +128,15 @@
     </tr>
     }
 
-    <tr>
-        <th></th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+<tr>
+    <th></th>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
 
 </tbody>

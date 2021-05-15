@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Statistik";
     measurement = Model.Measurements[0];
-    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 <div class="text-center pb-4" style="color: #415A6D">
@@ -62,11 +62,11 @@
             <tr>
                 <th scope="row">@item.City</th>
                 <td>
-                    @TimeZoneInfo.ConvertTimeFromUtc(item.Date, ectZone).ToString("yyyy-MM-dd")
+                    @TimeZoneInfo.ConvertTimeFromUtc(item.Date, timeZone).ToString("yyyy-MM-dd")
                     @*@item.Date.ToLocalTime().ToString("yyyy-MM-dd")*@
                 </td>
                 <td>
-                    @TimeZoneInfo.ConvertTimeFromUtc(item.Date, ectZone).ToString("HH:mm")
+                    @TimeZoneInfo.ConvertTimeFromUtc(item.Date, timeZone).ToString("HH:mm")
                     @*@item.Date.ToLocalTime().ToString("H:mm")*@
                 </td>
 

@@ -11,7 +11,7 @@
 
     public DateTime StartOfSeason { get; set; }
 
-    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 
@@ -25,7 +25,7 @@
             <th scope="row">@city</th>
             <td>
 
-                Det blev @Season @TimeZoneInfo.ConvertTimeFromUtc(StartOfSeason, ectZone).ToString("yyyy-MM-dd")    @*@StartOfSeason.ToString("yyyy-MM-dd")*@
+                Det blev @Season @TimeZoneInfo.ConvertTimeFromUtc(StartOfSeason, timeZone).ToString("yyyy-MM-dd")    @*@StartOfSeason.ToString("yyyy-MM-dd")*@
             </td>
         </tr>
     }

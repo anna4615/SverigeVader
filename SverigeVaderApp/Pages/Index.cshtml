@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Väder";
     string noValue = "-";
-    TimeZoneInfo ectZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
 
 
@@ -34,12 +34,13 @@
         @foreach (var city in Model.Cities)
         {
             measurement = Model.CurrentWeather.FirstOrDefault(m => m.City == city);
+
             @if (measurement != null)
             {
                 <tr>
                     <th scope="row">@measurement.City</th>
                     <td>
-                        @TimeZoneInfo.ConvertTimeFromUtc(measurement.Date, ectZone).ToString("yyyy-MM-dd HH:mm")
+                        @TimeZoneInfo.ConvertTimeFromUtc(measurement.Date, timeZone).ToString("yyyy-MM-dd HH:mm")
                     </td>
 
                     @if (measurement.Record.Description != null && measurement.Record.Icon != null)
