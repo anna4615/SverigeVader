@@ -46,7 +46,7 @@ namespace SverigeVaderApp.Pages
             // sätter kort timespan för att det inte skall ta så lång tid att komma igenom alla städer om Weatherbit inte svarar
             _client.Timeout = TimeSpan.FromSeconds(3);
 
-            Cities = new string[] { "Bromma", "Kiruna", "Östersund", "Göteborg", "Lund" };
+            Cities = new string[] { "Bromma", "Kiruna", "Östersund", "Göteborg", "Lund", "Södertälje" };
             CurrentWeather = new List<Measurement>();
 
             foreach (string city in Cities)

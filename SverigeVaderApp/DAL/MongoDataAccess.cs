@@ -24,7 +24,7 @@ namespace SverigeVaderApp.DAL
         {
             MongoClient client = GetMongoClient();
 
-            IMongoDatabase dataBase = client.GetDatabase(_configuration["MongoDbSettings:DbName"]);
+            IMongoDatabase dataBase = client.GetDatabase(_configuration["MongoDbSettings:localdbname"]);
             IMongoCollection<Measurement> collection = dataBase.GetCollection<Measurement>(_configuration["MongoDbSettings:CollectionName"]);
 
             return collection.Find(new BsonDocument()).ToList();
@@ -34,7 +34,7 @@ namespace SverigeVaderApp.DAL
         {
             MongoClient client = GetMongoClient();
 
-            IMongoDatabase dataBase = client.GetDatabase(_configuration["MongoDbSettings:DbName"]);
+            IMongoDatabase dataBase = client.GetDatabase(_configuration["MongoDbSettings:localdbname"]);
             IMongoCollection<Measurement> collection = dataBase.GetCollection<Measurement>(_configuration["MongoDbSettings:CollectionName"]);
 
             return collection;
@@ -44,25 +44,28 @@ namespace SverigeVaderApp.DAL
         //MongoDbSettings från secrets.json
         private MongoClient GetMongoClient()
         {
-            MongoClientSettings settings = new MongoClientSettings();
+            //MongoClientSettings settings = new MongoClientSettings();
 
-            settings.Server = new MongoServerAddress(_configuration["MongoDbSettings:Host"], 10255);
-            settings.UseTls = true;
-            settings.SslSettings = new SslSettings();
-            settings.SslSettings.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
-            settings.RetryWrites = false;
+            //settings.Server = new MongoServerAddress(_configuration["MongoDbSettings:Host"], 10255);
+            //settings.UseTls = true;
+            //settings.SslSettings = new SslSettings();
+            //settings.SslSettings.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+            //settings.RetryWrites = false;
 
-            MongoIdentity identity = new MongoInternalIdentity(_configuration["MongoDbSettings:DbName"], _configuration["MongoDbSettings:UserName"]);
-            MongoIdentityEvidence evidence = new PasswordEvidence(_configuration["MongoDbSettings:PassWord"]);
+            //MongoIdentity identity = new MongoInternalIdentity(_configuration["MongoDbSettings:DbName"], _configuration["MongoDbSettings:UserName"]);
+            //MongoIdentityEvidence evidence = new PasswordEvidence(_configuration["MongoDbSettings:PassWord"]);
 
-            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
+            //settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
 
-            MongoClient mongoClient = new MongoClient(settings);
+            //MongoClient mongoClient = new MongoClient(settings);
 
+            //return mongoClient;
+
+            //MongoClient mongoClient = new MongoClient(_configuration["ConnectionStrings:CosmosMongoConnection"]);
+            //return mongoClient;
+
+            MongoClient mongoClient = new MongoClient("mongodb://localhost:27017");
             return mongoClient;
-
-            //    MongoClient mongoClient = new MongoClient(_configuration["ConnectionStrings:CosmosMongoConnection"]);
-            //    return mongoClient;
         }
 
 

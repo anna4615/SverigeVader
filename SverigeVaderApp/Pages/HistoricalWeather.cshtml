@@ -2,7 +2,7 @@
 @model SverigeVaderApp.Pages.HistoricalWeatherModel
 @inject Models.Measurement measurement
 @{
-    ViewData["Title"] = "Statistik";
+    ViewData["Title"] = "Historiskt";
     measurement = Model.Measurements[0];
     TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
 }
@@ -38,7 +38,7 @@
 
 
 <table class="table table-sm">
-    <thead style="background-color: #95B5C9; color: #415A6D">
+    <thead style="background-color: #95B5C9; color: #415A6D; position: -webkit-sticky; position: sticky; top: 0">
         <tr>
             <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].City)</th>
             <th scope="col">@Html.DisplayNameFor(model => model.Measurements[0].Date)</th>
